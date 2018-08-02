@@ -110,10 +110,23 @@ function getChannel(channel){
         `;
 
         showChannelData(output);
+
+        const playlistID = channel.contentDetails.relatedPlaylists.uploads;
+        requestVideoPlaylist(playlistID);
     })
     .catch(err => alert('No Channel By That Name'));
 }
 
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
+}
+
+function requestVideoPlaylist(playlistID){
+    const requestOptions = {
+        playlistID: playlistID,
+        part: 'snippet',
+        maxResults: 15
+    }
+
+    const request = gapi.client.youtube.playlistItems.list(request);
 }
